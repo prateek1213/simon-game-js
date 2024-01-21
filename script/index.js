@@ -64,18 +64,21 @@ function startGame(){
 }
 
 const check= ()=>{
-     if(order.length!=playerOrder.length || order[order.length-1]!=playerOrder[playerOrder.length-1]/*order!=playerOrder*/){
+     if(playerOrder[playerOrder.length-1]!=order[playerOrder.length-1] /*order.length!=playerOrder.length || order[order.length-1]!=playerOrder[playerOrder.length-1] && order!=playerOrder*/){
         turnCounter.innerHTML="NO";
         setTimeout(() => {
             reset();
         }, 500);
         return;
      }
-     playerOrder=[];
-     turn++;
-     setTimeout(()=>{
-        startGame();
-     },300);
+     if(playerOrder.length==order.length)
+     {
+        playerOrder=[];
+        turn++;
+        setTimeout(()=>{
+            startGame();
+        },300);
+    }
 }
 function reset(){
     win=false;
@@ -124,18 +127,27 @@ function addToSequence(){
 }
 
 topLeft.addEventListener('click',(event)=>{
+    // topLeft.style.backgroundColor="lightgreen"
+    // setTimeout(()=>{
+    //     clearColor();
+    // },100);
     if(on && !win){
         playerOrder.push("green");
-        checkUserInput();
+        check();
+        // checkUserInput();
     }
     
 })
 
 topRight.addEventListener('click',(event)=>{
-    
+    // topLeft.style.backgroundColor="lightgreen"
+    // setTimeout(()=>{
+    //     clearColor();
+    // },100);
     if(on && !win){
         playerOrder.push("red");
-        checkUserInput();
+        // checkUserInput();
+        check();
     }
     
 })
@@ -143,15 +155,21 @@ topRight.addEventListener('click',(event)=>{
 bottomLeft.addEventListener('click',(event)=>{
     if(on && !win){
         playerOrder.push("yellow");
-        checkUserInput();
+        // checkUserInput();
+        check();
     }
     
 })
 
 bottomRight.addEventListener('click',(event)=>{
+    // topLeft.style.backgroundColor="lightgreen"
+    // setTimeout(()=>{
+    //     clearColor();
+    // },100);
     if(on && !win){
         playerOrder.push("blue");
-        checkUserInput();
+        // checkUserInput();
+        check();
     }
     
 })
@@ -160,6 +178,9 @@ function checkUserInput(){
     
     if(order.length>playerOrder.length){
         return;
+    }
+    if(playerOrder[playerOrder.length-1]!=order[playerOrder.length-1]){
+        
     }
     else{
         check();
